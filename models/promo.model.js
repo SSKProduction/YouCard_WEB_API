@@ -53,6 +53,7 @@ export default (sequelize) => {
       },
     },
     {
+      tableName: "promo",
       timestamps: false,
     }
   );

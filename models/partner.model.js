@@ -61,6 +61,7 @@ export default (sequelize) => {
       },
     },
     {
+      tableName: "partner",
       timestamps: false,
     }
   );

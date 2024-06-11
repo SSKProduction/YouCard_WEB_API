@@ -29,6 +29,7 @@ export default (sequelize) => {
       },
     },
     {
+      tableName: "contactPartner",
       timestamps: false,
     }
   );

@@ -77,6 +77,7 @@ export default (sequelize) => {
       },
     },
     {
+      tableName: "member",
       timestamps: false,
     }
   );

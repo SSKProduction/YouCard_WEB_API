@@ -6,6 +6,7 @@ import "dotenv/config";
 import express from "express";
 import "express-async-errors";
 import morgan from "morgan";
+import mainRouter from "./routes/index.js";
 
 // fichiers d'environnements
 const { PORT, NODE_ENV } = process.env;
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(morgan("short"));
 
 //routing
+app.use("/api", mainRouter);
 
 // demarrage serveur
 app.listen(PORT, () => {

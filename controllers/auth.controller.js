@@ -12,9 +12,21 @@ const authController = {
         return res.status(401).json({ message: info.message });
       }
 
-      const token = generateJwt(member); // Assurez-vous d'accéder correctement au membre depuis user
-      res.json({ user: member, token }); // Assurez-vous de renvoyer correctement le membre
+      const token = generateJwt(member);
+      res.json({ user: member, token });
     })(req, res, next);
   },
+
+  register: async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+      const newMember = await authService.register(email, password);
+      const token = generateJwt(newMember);
+      res.status(201).json({ member: newMember, token });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
 };
+
 export default authController;

@@ -1,0 +1,15 @@
+import { Router } from "express";
+import authController from "../controllers/auth.controller.js";
+import { bodyValidatorMiddleware } from "../middlewares/body-validator.middleware.js";
+import {
+  memberLoginValidator,
+} from "../validators/auth.validator.js";
+
+const authRouter = Router();
+
+authRouter
+  .route("/login")
+  .post(bodyValidatorMiddleware(memberLoginValidator), authController.login)
+  .all((_, res) => res.sendStatus(405));
+
+export default authRouter;

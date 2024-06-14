@@ -21,4 +21,8 @@ authRouter
   )
   .all((_, res) => res.sendStatus(405));
 
+authRouter
+  .get("/google", authController.googleAuth)
+  .get("/google/callback", authController.googleAuthCallback);
+
 export default authRouter;

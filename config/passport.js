@@ -1,8 +1,12 @@
-import argon2 from "argon2";
 import passport from "passport";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as LocalStrategy } from "passport-local";
 import db from "../models/index.js";
 import { generateJwt } from "../utils/jwt.utils.js";
+
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
+
+console.log("INFO GOOGLE : ", GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET);
 
 // Stratégie locale pour la connexion par email/mot de passe
 passport.use(
@@ -22,11 +26,46 @@ passport.use(
           return done(null, false, { message: "Mot de passe incorrect." });
         }
         const token = generateJwt(member);
-        return done(null, { member: member, token });
+        return done(null, { member, token });
       } catch (error) {
         return done(error);
       }
     }
   )
 );
+
+// Stratégie Google pour la connexion via Google
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://localhost:8080/api/auth/google/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        let member = await db.Member.findOne({
+          where: { googleId: profile.id },
+        });
+
+        if (!member) {
+          member = await db.Member.create({
+            googleId: profile.id,
+            firstname: profile.name.givenName,
+            lastname: profile.name.familyName,
+            email: profile.emails[0].value,
+            role_id: 1,
+            subscription_id: 1,
+          });
+        }
+
+        const token = generateJwt(member);
+        return done(null, { member, token });
+      } catch (error) {
+        return done(error);
+      }
+    }
+  )
+);
+
 export default passport;

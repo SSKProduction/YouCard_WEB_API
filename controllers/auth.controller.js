@@ -27,6 +27,22 @@ const authController = {
       res.status(400).json({ message: error.message });
     }
   },
+
+  googleAuth: passport.authenticate("google", { scope: ["profile", "email"] }),
+
+  googleAuthCallback: (req, res, next) => {
+    passport.authenticate("google", { session: false }, (err, member, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!member) {
+        return res.status(401).json({ message: info.message });
+      }
+
+      const token = generateJwt(member);
+      res.json({ user: member, token });
+    })(req, res, next);
+  },
 };
 
 export default authController;

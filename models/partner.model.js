@@ -19,10 +19,6 @@ export default (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      description: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       address_country: {
         type: DataTypes.STRING,
         allowNull: true,

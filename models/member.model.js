@@ -17,35 +17,35 @@ export default (sequelize) => {
       },
       firstname: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       lastname: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       birthdate: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       address_country: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       address_city: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       address_street: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       address_street_number: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       address_postcode: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
@@ -59,8 +59,9 @@ export default (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      oAuthId: {
-        type: DataTypes.STRING,
+      googleId: {
+        type: Sequelize.STRING,
+        unique: true,
         allowNull: true,
       },
       image_profile: {
@@ -73,7 +74,7 @@ export default (sequelize) => {
       },
       subscription_id: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
     },
     {

@@ -18,6 +18,7 @@ const authService = {
         email,
         password: hashedPassword,
         role_id: 1,
+        subscription_id: 1,
       });
 
       return newMember;

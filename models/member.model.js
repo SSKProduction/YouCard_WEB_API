@@ -25,27 +25,27 @@ export default (sequelize) => {
       },
       birthdate: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       address_country: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       address_city: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       address_street: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       address_street_number: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       address_postcode: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       email: {
         type: DataTypes.STRING,
@@ -57,7 +57,7 @@ export default (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       googleId: {
         type: Sequelize.STRING,

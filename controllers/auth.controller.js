@@ -17,12 +17,65 @@ const authController = {
     })(req, res, next);
   },
 
-  register: async (req, res, next) => {
+  registerMember: async (req, res, next) => {
     try {
-      const { email, password } = req.body;
-      const newMember = await authService.register(email, password);
+      const {
+        firstname,
+        lastname,
+        email,
+        birthdate,
+        address_country,
+        address_city,
+        address_street,
+        address_street_number,
+        address_postcode,
+        password,
+      } = req.body;
+      const newMember = await authService.registerMember(
+        firstname,
+        lastname,
+        email,
+        birthdate,
+        address_country,
+        address_city,
+        address_street,
+        address_street_number,
+        address_postcode,
+        password
+      );
       const token = generateJwt(newMember);
       res.status(201).json({ member: newMember, token });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
+
+  registerPartner: async (req, res, next) => {
+    try {
+      const {
+        firstname,
+        lastname,
+        email,
+        address_country,
+        address_city,
+        address_street,
+        address_street_number,
+        address_postcode,
+        password,
+      } = req.body;
+      const newPartner = await authService.registerPartner(
+        firstname,
+        lastname,
+        email,
+        address_country,
+        address_city,
+        address_street,
+        address_street_number,
+        address_postcode,
+        password
+      );
+      const token = generateJwt(newPartner);
+      res.status(201).json({ Partner: newPartner, token });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -33,14 +86,14 @@ const authController = {
   googleAuthCallback: (req, res, next) => {
     passport.authenticate("google", { session: false }, (err, member, info) => {
       if (err) {
+        console.log("Authentication error:", err);
         return next(err);
       }
       if (!member) {
+        console.log("Authentication failed:", info.message);
         return res.status(401).json({ message: info.message });
       }
-
-      const token = generateJwt(member);
-      res.json({ user: member, token });
+      res.json({ data: member });
     })(req, res, next);
   },
 };

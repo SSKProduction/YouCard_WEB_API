@@ -12,6 +12,7 @@ export const memberLoginValidator = yup.object().shape({
 
   password: yup.string().typeError("Le mot de passe est invalide"),
 });
+// same as member validator update but not required
 export const memberRegisterValidator = yup.object().shape({
   email: yup
     .string()

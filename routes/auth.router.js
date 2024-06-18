@@ -14,13 +14,20 @@ authRouter
   .all((_, res) => res.sendStatus(405));
 
 authRouter
-  .route("/register")
+  .route("/register/member")
   .post(
     bodyValidatorMiddleware(memberRegisterValidator),
-    authController.register
+    authController.registerMember
   )
   .all((_, res) => res.sendStatus(405));
 
+authRouter
+  .route("/register/partner")
+  .post(
+    bodyValidatorMiddleware(memberRegisterValidator),
+    authController.registerPartner
+  )
+  .all((_, res) => res.sendStatus(405));
 authRouter
   .get("/google", authController.googleAuth)
   .get("/google/callback", authController.googleAuthCallback);

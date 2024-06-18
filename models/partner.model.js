@@ -47,9 +47,17 @@ export default (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      image_profile: {
+      phone: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
+      },
+      URL_Website: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      TVA: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       contact_id: {
         type: DataTypes.INTEGER,

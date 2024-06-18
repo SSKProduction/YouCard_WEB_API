@@ -64,10 +64,6 @@ export default (sequelize) => {
         unique: true,
         allowNull: true,
       },
-      image_profile: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       role_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

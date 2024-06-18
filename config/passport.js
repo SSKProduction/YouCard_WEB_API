@@ -6,8 +6,6 @@ import { generateJwt } from "../utils/jwt.utils.js";
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
-console.log("INFO GOOGLE : ", GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET);
-
 // Stratégie locale pour la connexion par email/mot de passe
 passport.use(
   new LocalStrategy(

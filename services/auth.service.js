@@ -1,4 +1,6 @@
 import argon2 from "argon2";
+import { MemberDTO } from "../DTO/memberDTO.js";
+import { PartnerDTO } from "../DTO/partnerDTO.js";
 import db from "../models/index.js";
 
 const authService = {
@@ -23,7 +25,7 @@ const authService = {
         subscription_id: 1,
       });
 
-      return newMember;
+      return new MemberDTO(newMember);
     } catch (error) {
       throw error;
     }
@@ -47,7 +49,7 @@ const authService = {
         subscription_id: 1,
       });
 
-      return newPartner;
+      return new PartnerDTO(newPartner);
     } catch (error) {
       throw error;
     }

@@ -57,9 +57,19 @@ passport.use(
           });
         }
 
-        const token = generateJwt(member);
+        const token = generateJwt({
+          id: member.id,
+          firstname: member.firstname,
+          lastname: member.lastname,
+          email: member.email,
+          role_id: member.role_id,
+          subscription_id: member.subscription_id,
+        });
+
+        console.log("Generated token: ", token);
         return done(null, { member, token });
       } catch (error) {
+        console.error("Error in Google Strategy: ", error);
         return done(error);
       }
     }

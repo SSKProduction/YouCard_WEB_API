@@ -4,13 +4,25 @@ import { PartnerDTO } from "../DTO/partnerDTO.js";
 import db from "../models/index.js";
 
 const authService = {
-  registerMember: async (firstname, lastname, email, password) => {
+  registerMember: async (
+    firstname,
+    lastname,
+    email,
+    password,
+    birthdate,
+    address_country,
+    address_city,
+    address_street,
+    address_street_number,
+    address_postcode
+  ) => {
     try {
       // Vérifiez si l'email est déjà utilisé
       const existingMember = await db.Member.findOne({ where: { email } });
       if (existingMember) {
         throw new Error("L'email est déjà utilisé.");
       }
+      console.log("LE PASSWORD", password);
 
       // Hash le mot de passe
       const hashedPassword = await argon2.hash(password);
@@ -21,6 +33,12 @@ const authService = {
         lastname,
         email,
         password: hashedPassword,
+        birthdate,
+        address_country,
+        address_city,
+        address_street,
+        address_street_number,
+        address_postcode,
         role_id: 1,
         subscription_id: 1,
       });

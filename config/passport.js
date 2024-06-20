@@ -1,3 +1,4 @@
+import argon2 from "argon2";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as LocalStrategy } from "passport-local";
@@ -19,12 +20,14 @@ passport.use(
         if (!member) {
           return done(null, false, { message: "Email incorrect." });
         }
-        const isMatch = await argon2.verify(member.password, password);
+        const isMatch = await argon2.verify(
+          member.dataValues.password,
+          password
+        );
         if (!isMatch) {
           return done(null, false, { message: "Mot de passe incorrect." });
         }
-        const token = generateJwt(member);
-        return done(null, { member, token });
+        return done(null, { member });
       } catch (error) {
         return done(error);
       }

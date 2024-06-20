@@ -15,16 +15,34 @@ const memberService = {
     }
   },
   update: async (id, updateData) => {
+    console.log("DATAAAAAAAA    : ", updateData);
     const transaction = await db.sequelize.transaction();
     try {
-      const member = await db.Member.findOne({ where: { id } });
+      const member = await db.Member.findOne({ where: { id }, transaction });
 
       if (!member) {
         await transaction.rollback();
         return null;
       }
 
-      await member.update(updateData, { transaction });
+      const fieldsToUpdate = [
+        "firstname",
+        "lastname",
+        "birthdate",
+        "address_country",
+        "address_city",
+        "address_street",
+        "address_street_number",
+        "address_postcode",
+      ];
+      const filteredData = {};
+      fieldsToUpdate.forEach((field) => {
+        if (updateData[field] !== undefined) {
+          filteredData[field] = updateData[field];
+        }
+      });
+
+      await member.update(filteredData, { transaction });
       await transaction.commit();
       return !!member ? new MemberDTO(member) : null;
     } catch (error) {

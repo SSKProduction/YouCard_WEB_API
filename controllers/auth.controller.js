@@ -22,6 +22,7 @@ const authController = {
       const {
         firstname,
         lastname,
+        password,
         email,
         birthdate,
         address_country,
@@ -29,19 +30,18 @@ const authController = {
         address_street,
         address_street_number,
         address_postcode,
-        password,
       } = req.body;
       const newMember = await authService.registerMember(
         firstname,
         lastname,
         email,
+        password,
         birthdate,
         address_country,
         address_city,
         address_street,
         address_street_number,
-        address_postcode,
-        password
+        address_postcode
       );
       const token = generateJwt(newMember);
       res.status(201).json({ member: newMember, token });

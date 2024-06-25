@@ -15,7 +15,7 @@ const memberService = {
     }
   },
   update: async (id, updateData) => {
-    console.log("DATAAAAAAAA    : ", updateData);
+    // console.log("DATAAAAAAAA    : ", updateData);
     const transaction = await db.sequelize.transaction();
     try {
       const member = await db.Member.findOne({ where: { id }, transaction });
@@ -34,6 +34,7 @@ const memberService = {
         "address_street",
         "address_street_number",
         "address_postcode",
+        "email",
       ];
       const filteredData = {};
       fieldsToUpdate.forEach((field) => {

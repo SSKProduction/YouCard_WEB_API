@@ -25,8 +25,36 @@ const memberController = {
     }
   },
 
-  updateMemberPassword: async (req, res) => {
-    res.json("update member");
+  updatePassword: async (req, res) => {
+    const id = req.params.id;
+    console.log("username :", id);
+    const currentPassword = req.body.currentPassword;
+    console.log(currentPassword);
+    const newPwd = req.body.password;
+    console.log("new pwd :", newPwd);
+
+    try {
+      const verifyCurrentPassword = await memberService.verifyCurrentPassword(
+        id,
+        currentPassword
+      );
+
+      if (!verifyCurrentPassword) {
+        return res
+          .status(401)
+          .send({ message: "Mot de passe actuel incorrect." });
+      }
+      const updatePwd = await memberService.updatePassword(id, newPwd);
+      console.log("updatePwd :", updatePwd);
+      if (!updatePwd) {
+        return res
+          .status(404)
+          .send({ message: "Echec de la mise a jour du mot de passe." });
+      }
+      res.sendStatus(200);
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
   },
   deleteMember: async (req, res) => {
     res.json("delete member");

@@ -48,23 +48,39 @@ const authService = {
       throw error;
     }
   },
-  registerPartner: async (email, password) => {
+  registerPartner: async (
+    name,
+    email,
+    password,
+    address_country,
+    address_city,
+    address_street,
+    address_street_number,
+    address_postcode,
+    contact_id
+  ) => {
     try {
       // Vérifiez si l'email est déjà utilisé
       const existingPartner = await db.Partner.findOne({ where: { email } });
       if (existingPartner) {
         throw new Error("L'email est déjà utilisé.");
       }
+      //! continuer avec le contact_id !!!!!!!!!!!!!!
 
       // Hash le mot de passe
       const hashedPassword = await argon2.hash(password);
 
       // Créez un nouveau membre
       const newPartner = await db.Partner.create({
+        name,
         email,
         password: hashedPassword,
-        role_id: 1,
-        subscription_id: 1,
+        address_country,
+        address_city,
+        address_street,
+        address_street_number,
+        address_postcode,
+        contact_id,
       });
 
       return new PartnerDTO(newPartner);

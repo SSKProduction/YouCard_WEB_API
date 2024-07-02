@@ -16,7 +16,7 @@ const memberService = {
     }
   },
   update: async (id, updateData) => {
-    // console.log("DATAAAAAAAA    : ", updateData);
+    // console.log("DATA    : ", updateData);
     const transaction = await db.sequelize.transaction();
     try {
       const member = await db.Member.findOne({ where: { id }, transaction });

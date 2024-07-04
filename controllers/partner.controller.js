@@ -19,5 +19,18 @@ const partnerController = {
     }
     res.status(200).json(partners);
   },
+  update: async (req, res) => {
+    const id = req.params.id;
+    const updateData = req.body;
+    try {
+      const updatedDataPartner = await partnerService.update(id, updateData);
+      if (!updatedDataPartner) {
+        return res.status(404).send({ message: "Partenaire non trouvé." });
+      }
+      res.send(updatedDataPartner);
+    } catch (error) {
+      res.status(400).send({ message: error.message });
+    }
+  },
 };
 export default partnerController;

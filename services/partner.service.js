@@ -26,5 +26,23 @@ const partnerService = {
       throw new Error("Les partenaires sont introuvable");
     }
   },
+  update: async (id, updateData) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+      const partner = await db.Partner.findOne({ where: { id }, transaction });
+
+      if (!partner) {
+        await transaction.rollback();
+        return null;
+      }
+
+      await partner.update(updateData, { transaction });
+      await transaction.commit();
+      return !!partner ? new PartnerDTO(partner) : null;
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
+  },
 };
 export default partnerService;

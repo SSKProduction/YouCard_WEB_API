@@ -15,11 +15,15 @@ export default (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+      firstname: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      email: {
+      lastname: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email_contact_partner: {
         type: DataTypes.STRING,
         allowNull: false,
       },

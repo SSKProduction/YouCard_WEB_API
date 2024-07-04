@@ -4,6 +4,7 @@ import { bodyValidatorMiddleware } from "../middlewares/body-validator.middlewar
 import {
   memberLoginValidator,
   memberRegisterValidator,
+  partnerRegisterValidator,
 } from "../validators/auth.validator.js";
 
 const authRouter = Router();
@@ -24,7 +25,7 @@ authRouter
 authRouter
   .route("/register/partner")
   .post(
-    bodyValidatorMiddleware(memberRegisterValidator),
+    bodyValidatorMiddleware(partnerRegisterValidator),
     authController.registerPartner
   )
   .all((_, res) => res.sendStatus(405));

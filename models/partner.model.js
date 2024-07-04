@@ -15,11 +15,7 @@ export default (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      firstname: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      lastname: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -43,7 +39,7 @@ export default (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      email: {
+      email_partner: {
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -55,11 +51,11 @@ export default (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      URL_Website: {
+      URL_website: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      TVA: {
+      TVA_number: {
         type: DataTypes.STRING,
         allowNull: false,
       },

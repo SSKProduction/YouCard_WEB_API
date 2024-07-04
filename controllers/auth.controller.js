@@ -1,6 +1,8 @@
 import passport from "passport";
 import authService from "../services/auth.service.js";
 import { generateJwt } from "../utils/jwt.utils.js";
+import { separateData } from "../utils/separateData.js";
+import { partnerRegisterValidator } from "../validators/auth.validator.js";
 
 const authController = {
   login: (req, res, next) => {
@@ -52,27 +54,19 @@ const authController = {
 
   registerPartner: async (req, res, next) => {
     try {
-      const {
-        firstname,
-        lastname,
-        email,
-        address_country,
-        address_city,
-        address_street,
-        address_street_number,
-        address_postcode,
-        password,
-      } = req.body;
+      // Validez les données ici avec Yup
+      const validatedData = await partnerRegisterValidator.validate(req.body, {
+        abortEarly: false,
+      });
+
+      // Séparez les données du partenaire et du contact partenaire
+      const { contactData, partnerData } = separateData(validatedData);
+      // console.log("les dataaaa : ", contactData, partnerData);
+
+      // Enregistrez le partenaire et le contact partenaire
       const newPartner = await authService.registerPartner(
-        firstname,
-        lastname,
-        email,
-        address_country,
-        address_city,
-        address_street,
-        address_street_number,
-        address_postcode,
-        password
+        partnerData,
+        contactData
       );
       const token = generateJwt(newPartner);
       res.status(201).json({ Partner: newPartner, token });

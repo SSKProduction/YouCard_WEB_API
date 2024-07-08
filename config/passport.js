@@ -2,6 +2,7 @@ import argon2 from "argon2";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as LocalStrategy } from "passport-local";
+import { MemberDTO } from "../DTO/memberDTO.js";
 import db from "../models/index.js";
 import { generateJwt } from "../utils/jwt.utils.js";
 
@@ -27,7 +28,7 @@ passport.use(
         if (!isMatch) {
           return done(null, false, { message: "Mot de passe incorrect." });
         }
-        return done(null, { member });
+        return done(null, new MemberDTO(member));
       } catch (error) {
         return done(error);
       }

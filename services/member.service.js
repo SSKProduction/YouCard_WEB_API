@@ -63,5 +63,22 @@ const memberService = {
       throw error;
     }
   },
+  delete: async (id) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+      const member = await db.Member.findOne({ where: { id } });
+      console.log("le member a delete : ", member);
+
+      if (!member) {
+        throw new Error("Le membre est introuvable.");
+      }
+
+      await member.destroy({ transaction });
+      await transaction.commit();
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
+  },
 };
 export default memberService;

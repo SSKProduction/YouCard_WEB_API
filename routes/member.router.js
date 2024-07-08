@@ -19,6 +19,7 @@ memberRouter
     bodyValidatorMiddleware(memberUpdatePwdValidator),
     memberController.updatePassword
   )
+  .delete(memberController.delete)
   .all((_, res) => res.sendStatus(405));
 
 export default memberRouter;

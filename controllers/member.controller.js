@@ -56,8 +56,12 @@ const memberController = {
       res.status(400).send(error.message);
     }
   },
-  deleteMember: async (req, res) => {
-    res.json("delete member");
+  delete: async (req, res) => {
+    const id = req.params.id;
+
+    await memberService.delete(id);
+
+    res.sendStatus(200);
   },
 };
 

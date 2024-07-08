@@ -3,6 +3,14 @@ import db from "../models/index.js";
 
 const contactPartner = {
   add: async (contactPartnerData) => {
+    const existingContact = await db.ContactPartner.findOne({
+      where: { email: contactPartnerData.email },
+    });
+
+    if (existingContact) {
+      throw new Error("Une personne de contact avec cet email existe déjà.");
+    }
+
     const contactPartner = await db.ContactPartner.create(contactPartnerData);
     return new contactPartnerDTO(contactPartner);
   },

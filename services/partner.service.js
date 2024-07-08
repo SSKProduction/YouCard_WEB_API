@@ -44,5 +44,21 @@ const partnerService = {
       throw error;
     }
   },
+  delete: async (id) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+      const partner = await db.Partner.findOne({ where: { id } });
+
+      if (!partner) {
+        throw new Error("Le membre est introuvable.");
+      }
+
+      await partner.destroy({ transaction });
+      await transaction.commit();
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
+  },
 };
 export default partnerService;

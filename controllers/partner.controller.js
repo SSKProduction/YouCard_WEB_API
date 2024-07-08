@@ -1,3 +1,4 @@
+import contactPartnerService from "../services/contactPartner.service.js";
 import partnerService from "../services/partner.service.js";
 
 const partnerController = {
@@ -31,6 +32,18 @@ const partnerController = {
     } catch (error) {
       res.status(400).send({ message: error.message });
     }
+  },
+  delete: async (req, res) => {
+    const id = req.params.id;
+
+    const partner = await partnerService.getOne(id);
+    console.log("LE CONTACT ID ID    : ", partner.contact_id);
+    console.log("LE PARTNER    : ", partner);
+
+    await contactPartnerService.delete(partner.contact_id);
+    await partnerService.delete(id);
+
+    res.sendStatus(200);
   },
 };
 export default partnerController;

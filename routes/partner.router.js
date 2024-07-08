@@ -13,5 +13,6 @@ partnerRouter
   .route("/:id")
   .get(partnerController.getOne)
   .patch(bodyValidatorMiddleware(partnerUpdate), partnerController.update)
+  .delete(partnerController.delete)
   .all((_, res) => res.sendStatus(405));
 export default partnerRouter;

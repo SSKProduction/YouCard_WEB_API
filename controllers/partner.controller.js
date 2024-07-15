@@ -37,8 +37,6 @@ const partnerController = {
     const id = req.params.id;
 
     const partner = await partnerService.getOne(id);
-    console.log("LE CONTACT ID ID    : ", partner.contact_id);
-    console.log("LE PARTNER    : ", partner);
 
     await contactPartnerService.delete(partner.contact_id);
     await partnerService.delete(id);

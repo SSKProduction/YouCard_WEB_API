@@ -23,7 +23,7 @@ export default (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      image_profile: {
+      image_url: {
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -48,6 +48,10 @@ export default (sequelize) => {
         allowNull: true,
       },
       partner_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      subscription_id: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },

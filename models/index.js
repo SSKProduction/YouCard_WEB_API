@@ -50,6 +50,14 @@ db.Partner.hasMany(db.Promo, {
   foreignKey: "partner_id",
 });
 
+// Relation entre Promo et subscription
+db.Promo.belongsTo(db.Subscription, {
+  foreignKey: "subscription_id",
+});
+db.Subscription.hasMany(db.Promo, {
+  foreignKey: "subscription_id",
+});
+
 // Relation entre Partner et ContactPartner
 db.Partner.hasOne(db.ContactPartner, {
   foreignKey: "contact_id",

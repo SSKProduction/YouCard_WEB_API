@@ -31,16 +31,20 @@ export default (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      discount: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       is_permanent: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
       },
       start_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: true,
       },
       end_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: true,
       },
       available: {

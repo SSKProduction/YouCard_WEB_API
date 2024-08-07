@@ -11,4 +11,20 @@ promoRouter
   .post(bodyValidatorMiddleware(promo), promoController.create)
   .all((_, res) => res.sendStatus(405));
 
+promoRouter
+  .route("/:id")
+  .patch(bodyValidatorMiddleware(promo), promoController.update)
+  .delete(promoController.delete)
+  .all((_, res) => res.sendStatus(405));
+
+promoRouter
+  .route("/partner/:id")
+  .get(promoController.getByPartner)
+  .all((_, res) => res.sendStatus(405));
+
+promoRouter
+  .route("/subscription/:id")
+  .get(promoController.getBySubscription)
+  .all((_, res) => res.sendStatus(405));
+
 export default promoRouter;
